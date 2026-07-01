@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dudley — Cabildo Companies</title>
+<meta name="description" content="Dudley is an AI guide that helps you travel better, remember more, and plan trips worth taking. From Cabildo Companies.">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1a1713;
+  --ink-soft:#5c554d;
+  --cream:#f7f3ec;
+  --warm-white:#fdfaf6;
+  --rule:#e4ddd4;
+  --gold:#b8935a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;}
+a{color:var(--gold);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+nav{padding:28px 52px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--rule);}
+.wordmark{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;letter-spacing:-.02em;color:var(--ink);}
+.nav-links{display:flex;gap:32px;font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);}
+.nav-links a{color:var(--ink-soft);}
+.nav-links a:hover{color:var(--ink);text-decoration:none;}
+
+.hero{max-width:800px;margin:0 auto;padding:100px 52px 80px;text-align:center;}
+.hero-eyebrow{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,88px);font-weight:500;line-height:1.05;letter-spacing:-.02em;color:var(--ink);margin-bottom:28px;}
+.hero h1 em{font-style:italic;color:var(--ink-soft);}
+.hero-sub{font-size:18px;color:var(--ink-soft);max-width:520px;margin:0 auto;line-height:1.6;}
+
+.section{max-width:960px;margin:0 auto;padding:80px 52px;}
+.section-label{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:40px;}
+.three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;}
+.card{border-top:1px solid var(--rule);padding-top:24px;}
+.card h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;margin-bottom:10px;}
+.card p{font-size:15px;color:var(--ink-soft);line-height:1.6;}
+
+.channels{background:var(--warm-white);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);}
+.channels-inner{max-width:960px;margin:0 auto;padding:80px 52px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.channels-text h2{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4vw,48px);font-weight:500;line-height:1.15;margin-bottom:20px;}
+.channels-text p{color:var(--ink-soft);margin-bottom:16px;font-size:15px;}
+.channel-list{list-style:none;display:flex;flex-direction:column;gap:16px;}
+.channel-list li{display:flex;align-items:flex-start;gap:14px;font-size:15px;color:var(--ink-soft);}
+.channel-list li::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:2px;}
+
+.companies{max-width:960px;margin:0 auto;padding:80px 52px;}
+.companies h2{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;margin-bottom:40px;}
+.company-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+.company-card{background:var(--warm-white);border:1px solid var(--rule);border-radius:4px;padding:28px;}
+.company-card h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;margin-bottom:8px;}
+.company-card p{font-size:13px;color:var(--ink-soft);line-height:1.6;margin-bottom:16px;}
+.company-card a{font-size:13px;font-weight:500;letter-spacing:.04em;}
+
+footer{padding:40px 52px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--ink-soft);}
+.footer-links{display:flex;gap:24px;}
+.footer-links a{color:var(--ink-soft);}
+
+@media(max-width:720px){
+  nav,footer{padding-left:20px;padding-right:20px;}
+  .hero,.section,.companies{padding-left:20px;padding-right:20px;}
+  .channels-inner{padding-left:20px;padding-right:20px;grid-template-columns:1fr;gap:40px;}
+  .three-col,.company-grid{grid-template-columns:1fr;}
+  .nav-links{display:none;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <span class="wordmark">Cabildo</span>
+  <div class="nav-links">
+    <a href="#companies">Our Companies</a>
+    <a href="/privacy">Privacy</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <p class="hero-eyebrow">Meet Dudley</p>
+  <h1>Your guide to the<br><em>places that matter.</em></h1>
+  <p class="hero-sub">Dudley is an AI travel guide that helps families discover what's worth seeing, plan trips worth taking, and hold onto the ones they've already been on.</p>
+</section>
+
+<section class="section">
+  <p class="section-label">What Dudley does</p>
+  <div class="three-col">
+    <div class="card">
+      <h3>Knows the place</h3>
+      <p>Tell Dudley where you're going. He'll tell you what's actually worth your time — the stops that make a trip, not the ones that fill a brochure.</p>
+    </div>
+    <div class="card">
+      <h3>Remembers the trip</h3>
+      <p>Every trip you take becomes part of your story. Dudley helps you hold onto the details before they fade — the names, the places, the moments.</p>
+    </div>
+    <div class="card">
+      <h3>Learns what you care about</h3>
+      <p>Family travel. History. Great food. Dudley pays attention to what matters to you, and gets better at it over time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="channels">
+  <div class="channels-inner">
+    <div class="channels-text">
+      <h2>Talk to Dudley however you want</h2>
+      <p>Dudley meets you where you are — in the app, by text, or wherever you need a knowledgeable friend who has actually been paying attention.</p>
+    </div>
+    <ul class="channel-list">
+      <li>Text him a destination — he'll send back what's worth seeing</li>
+      <li>Ask him what to stop for on the drive</li>
+      <li>Let him help you remember a trip while it's still fresh</li>
+      <li>Find out what families like yours loved about a place</li>
+    </ul>
+  </div>
+</section>
+
+<section class="companies" id="companies">
+  <h2>Cabildo Companies</h2>
+  <div class="company-grid">
+    <div class="company-card">
+      <h3>Portage</h3>
+      <p>A travel guide built for family trips. Discover landmarks, build itineraries, and keep track of the places your family has been.</p>
+      <a href="https://portage.travel">portage.travel →</a>
+    </div>
+    <div class="company-card">
+      <h3>Cour</h3>
+      <p>A private space for your memories, the people around you, and the moments you want to keep. Built for the people who matter most.</p>
+      <a href="https://cour.app">cour.app →</a>
+    </div>
+    <div class="company-card">
+      <h3>Routabout</h3>
+      <p>The intelligence infrastructure behind Dudley and the tools that run across all of Cabildo.</p>
+      <a href="https://routabout.ai">routabout.ai →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 Cabildo Companies</span>
+  <div class="footer-links">
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/sms-terms">SMS Terms</a>
+  </div>
+</footer>
+
+</body>
+</html>
