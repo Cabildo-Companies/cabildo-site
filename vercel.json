@@ -2,6 +2,7 @@
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/sms-terms", "destination": "/sms-terms.html" }
+    { "source": "/sms-terms", "destination": "/sms-terms.html" },
+    { "source": "/dudley-sms-optin", "destination": "/dudley-sms-optin.html" }
   ]
 }
