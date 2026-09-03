@@ -4,5 +4,11 @@
     { "source": "/privacy", "destination": "/privacy.html" },
     { "source": "/sms-terms", "destination": "/sms-terms.html" },
     { "source": "/dudley-sms-optin", "destination": "/dudley-sms-optin.html" }
+  ],
+  "redirects": [
+    { "source": "/get/dudley", "destination": "https://mydudley.app", "permanent": false },
+    { "source": "/get/cour", "destination": "https://mydudley.app", "permanent": false },
+    { "source": "/get/portage", "destination": "https://portage.travel", "permanent": false },
+    { "source": "/get/veyay", "destination": "https://veyay.app", "permanent": false }
   ]
 }
