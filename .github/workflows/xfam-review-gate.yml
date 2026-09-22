@@ -1,0 +1,98 @@
+name: xfam-review-gate
+
+# Preston, 2026-09-22: "add the xfam review or my waiver ruling to all repos."
+#
+# WHY THIS EXISTS HERE. CROSS_FAMILY_REVIEW_DOCTRINE.md (BINDING) requires an
+# independent-family review BEFORE a high-risk change lands. This repo had NO
+# CI at all and no vendored gate, so nothing ever asked. It now carries
+# `scripts/xfam_gate_min.py`, the portable minimal gate — a much smaller
+# classifier than the full `check_xfam_review.py` that routabout, dudvault,
+# actionable-intel and dudley-travel carry, asking the same question.
+#
+# WHAT SATISFIES IT (the script decides, not this file):
+#   * a `## Cross-family review` section in the PR body naming a reviewer and an
+#     outcome;
+#   * or Preston's waiver line: `Cross-family review: not required — <reason>`,
+#     which requires a substantive reason.
+# A PR touching no high-risk path passes untouched.
+
+# `pull_request_target`, NOT `pull_request`. Under `pull_request` GitHub runs
+# the workflow file FROM THE PR'S OWN REVISION, so a PR could replace this job
+# with a no-op that reports success under the same required-check name and
+# merge itself — the exact self-modification this gate exists to stop (found by
+# the cross-family review of this file, 2026-09-22). `pull_request_target`
+# evaluates the workflow from the BASE branch, so changing it in a PR changes
+# nothing until that PR has already passed the gate and landed.
+#
+# The usual `pull_request_target` hazard is running untrusted PR code with an
+# elevated token. This job never executes anything from the PR: it checks the
+# PR tree out only so the base-branch gate can DIFF it, runs python from copies
+# of the base branch's own scripts, and holds a read-only token.
+on:
+  pull_request_target:
+    branches: [main]
+    # `edited` matters: this check reads its evidence from the PR BODY, and the
+    # dispatcher's whole re-trigger mechanism is editing the body after
+    # attaching a fresh review. Without it, GitHub's default trio never
+    # re-evaluates a body edit — a PR that went green once would stay green
+    # even if the body were later edited to strip the review out.
+    types: [opened, synchronize, reopened, edited]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  xfam-review:
+    name: Cross-family review
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Base branch first: this is what `git show origin/main:…` reads from.
+      #
+      # Credentials are deliberately LEFT IN PLACE here (no
+      # `persist-credentials: false`): these repositories are private, and the
+      # next step's `git fetch origin pull/N/head` is a manual fetch that would
+      # otherwise be unauthenticated and fail outright (found by the
+      # cross-family review of this file, 2026-09-22). The token is the
+      # read-only job token declared above — `contents: read` +
+      # `pull-requests: read` — and no PR code is ever executed, so a persisted
+      # read-only credential is the smaller risk than a gate that cannot run.
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+        with:
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 0
+
+      # Then put the PR's tree in the working copy so the gate has something to
+      # diff. Checked out, never executed.
+      - name: Check out the PR head for diffing only
+        env:
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git fetch --no-tags origin "pull/${PR_NUMBER}/head"
+          git checkout --detach FETCH_HEAD
+
+      # The PR body is untrusted input: fetch it straight to a file, never
+      # interpolate it into the shell program. Execute the gate from the
+      # PROTECTED BASE BRANCH, not the proposed head — a PR that weakens the
+      # checker must not get to judge its own weakening.
+      #
+      # NOTE: the minimal gate does not verify receipts, check reviewer-family
+      # independence, or pin a reviewed head SHA — see its docstring. It asks
+      # for a review record or Preston's waiver and leaves the judgement of
+      # those to a human. A repo that grows real enforcement code should
+      # graduate to the full `check_xfam_review.py`.
+      - name: Require review evidence for high-risk changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BODY_FILE: ${{ runner.temp }}/pr-body.txt
+          GATE_DIR: ${{ runner.temp }}/xfam-gate
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          mkdir -p "${GATE_DIR}"
+          git show origin/main:scripts/xfam_gate_min.py > "${GATE_DIR}/xfam_gate_min.py"
+          gh pr view "${PR_NUMBER}" --repo "${{ github.repository }}" --json body -q .body > "${BODY_FILE}"
+          python3 "${GATE_DIR}/xfam_gate_min.py" \
+            --base origin/main \
+            --body-file "${BODY_FILE}"
