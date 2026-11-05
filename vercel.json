@@ -25,7 +25,7 @@
     },
     {
       "source": "/get/cour",
-      "destination": "https://mycour.app",
+      "destination": "https://courvirtues.com",
       "permanent": false
     },
     {
@@ -36,6 +36,16 @@
     {
       "source": "/get/veyay",
       "destination": "https://veyay.app",
+      "permanent": false
+    },
+    {
+      "source": "/get/resilience",
+      "destination": "https://resiliencelearning.app",
+      "permanent": false
+    },
+    {
+      "source": "/get/portage/creators",
+      "destination": "https://myportage.app/travel/creators",
       "permanent": false
     }
   ],
